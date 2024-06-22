@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+ <div class="container">
+    <div class="calculator">
+        <h1> Javascript <br> <span>Age alculator</span></h1>
+      <div class="input-box">
+        <input type="date" id="date">
+        <button onclick="calculateAge()">Calculate</button>
+      </div>
+      <p id="result"></p>
+      </div>
+ </div>   
+
+
+ <script>
+let userInput = document.getElementById("date");
+userInput.max = new Date(). toISOString().split("T")[0];
+let result = document.getElementById("result");
+
+function calculateAge(){
+  console.log("called");
+  let  birthDate = new Date(userInput.value);
+  
+  // let d1 = birthDate.getDate();
+  // let m1 = birthDate.getMonth() + 1;
+  // let y1 = birthDate.getFullYear();
+
+  // console.log(d1,m1,y1);
+
+  let today = new Date();
+
+  let years; let months; let days;
+
+  diff = dateDiff(birthDate, today);
+  console.log(diff );
+
+
+ 
+
+result.innerHTML =`you are ${diff.years} years, ${diff.months} month and ${diff.days} days old`;
+    
+    }
+
+ 
+    function dateDiff(date1, date2) {
+  const years = date2.getFullYear() - date1.getFullYear();
+  const months = date2.getMonth() - date1.getMonth();
+
+  // Handle months that go across years
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  const days = date2.getDate() - date1.getDate();
+
+  // Handle negative days
+  if (days < 0) {
+    months--;
+    days += date1.clone().endOf('month').getDate(); // Get days in previous month
+  }
+
+  return { years, months, days };
+}
+
+
+ </script>
+</body>
+</html>
